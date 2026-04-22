@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cart-container" style="text-align: center; padding: 4rem 1rem;">
+    <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem;">
+        <i class="fa-solid fa-check"></i>
+    </div>
+    <h2 style="margin-bottom: 1rem;">Заказ успешно оформлен!</h2>
+    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; max-width: 500px; margin: 0 auto 2rem;">
+        Тестовая оплата прошла успешно! Ваш заказ забронирован.<br><br>
+        <strong>Что дальше?</strong><br>
+        Наш специалист свяжется с вами в ближайшее время для подтверждения сроков аренды и доставки. Вы также можете забрать ваше снаряжение самостоятельно по адресу:<br>
+        <span style="color: var(--text); font-weight: 600; font-size: 1.2rem; display: block; margin-top: 0.75rem;"><i class="fa-solid fa-location-dot" style="color: var(--accent); margin-right: 0.3rem;"></i>  г. Минск, улица Франциска Скорины, 25 к 3</span>
+    </p>
+    <a href="/" class="btn btn-primary" style="padding: 0.8rem 2rem;"><i class="fa-solid fa-house"></i> На главную</a>
+</div>
+{% endblock %}

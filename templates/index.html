@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="split-layout">
+    <!-- Left: Hero / Stages -->
+    <div class="content-section" id="content-panel">
+        <!-- Hero View -->
+        <div id="hero-view">
+            <div class="hero-header">
+                <h1>Начни Свое <span class="gradient-text">Путешествие</span></h1>
+                <p>Наш ИИ-ассистент подберёт всё необходимое снаряжение для аренды. Просто опишите свои планы!</p>
+            </div>
+
+            <div class="ideas-container">
+                <h2><i class="fa-solid fa-lightbulb"></i> Идеи для приключений</h2>
+                <div class="ideas-grid">
+                    <div class="idea-card" data-prompt="Семейная велопоездка на 5 человек с маленьким ребёнком на выходные">
+                        <div class="idea-icon"><i class="fa-solid fa-bicycle"></i></div>
+                        <h3>Семейный велотур</h3>
+                        <p>Велопоездка для всей семьи с детским снаряжением</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Поход в горы с палаткой на 3 дня для 2 человек">
+                        <div class="idea-icon"><i class="fa-solid fa-campground"></i></div>
+                        <h3>Горный поход</h3>
+                        <p>Палатки, спальники и снаряжение для треккинга</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Пикник и барбекю на природе для компании из 8 человек">
+                        <div class="idea-icon"><i class="fa-solid fa-fire"></i></div>
+                        <h3>Пикник на природе</h3>
+                        <p>Грили, мангалы, посуда и мебель для отдыха</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Рыбалка и отдых у озера на 2 дня, нужна лодка и снаряжение">
+                        <div class="idea-icon"><i class="fa-solid fa-water"></i></div>
+                        <h3>Отдых у воды</h3>
+                        <p>Надувные лодки, товары для плавания и кемпинг</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Экстремальный велотур по бездорожью, горные велосипеды, экшн-камеры и защита">
+                        <div class="idea-icon"><i class="fa-solid fa-person-hiking"></i></div>
+                        <h3>Экстрим на велосипедах</h3>
+                        <p>Горные велосипеды, защита, экшн-камеры</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Наблюдение за природой и фотоохота, нужны бинокли, фотоловушки, фонари">
+                        <div class="idea-icon"><i class="fa-solid fa-binoculars"></i></div>
+                        <h3>Фотоохота</h3>
+                        <p>Бинокли, фотоловушки, камуфляж и оптика</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Поход на лодке с мотором по реке на выходные, нужно 2 лодки и моторы">
+                        <div class="idea-icon"><i class="fa-solid fa-sailboat"></i></div>
+                        <h3>Водный поход</h3>
+                        <p>Надувные лодки, лодочные моторы и спасательные жилеты</p>
+                    </div>
+                    <div class="idea-card" data-prompt="Рыбалка на озере на целый день, нужны удилища, катушки и эхолот">
+                        <div class="idea-icon"><i class="fa-solid fa-fish-fins"></i></div>
+                        <h3>Рыбалка на озере</h3>
+                        <p>Удилища, катушки, эхолоты и снаряжение для рыбалки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stages View (shown after AI finds products) -->
+        <div id="stages-view" style="display:none;">
+            <div class="stages-top-bar">
+                <div class="stages-top-left">
+                    <button class="back-btn" id="back-to-hero" title="Назад к идеям">
+                        <i class="fa-solid fa-arrow-left"></i> <span class="nav-text">Назад</span>
+                    </button>
+                    <h2>Ваше снаряжение</h2>
+                </div>
+                <div class="global-rent-duration">
+                    <span>Срок аренды:</span>
+                    <div class="duration-controls">
+                        <button id="global-rent-dec">−</button>
+                        <span id="global-rent-label">1 дн.</span>
+                        <button id="global-rent-inc">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="stages-body">
+                <!-- Stepper sidebar (wide screens) -->
+                <div class="stage-stepper" id="stage-stepper"></div>
+                <!-- Slide content -->
+                <div class="stage-slide-area" id="stage-slide"></div>
+            </div>
+        </div>
+
+        <!-- Cart View -->
+        <div id="cart-view" style="display:none;">
+            <div class="stages-top-bar">
+                <div class="stages-top-left">
+                    <button class="back-btn" id="cart-to-stages" title="Назад к выбору">
+                        <i class="fa-solid fa-arrow-left"></i> <span class="nav-text">Назад</span>
+                    </button>
+                    <h2><i class="fa-solid fa-cart-shopping"></i> Корзина</h2>
+                </div>
+            </div>
+            <div class="cart-container-spa" id="cart-content">
+                <!-- Will be filled by JS -->
+                <div class="loading-state">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Загрузка корзины...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Chat -->
+    <div class="chatbot-section">
+        <div class="chatbot-header">
+            <div class="bot-avatar">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="bot-info">
+                <h3>Смарт-Гид</h3>
+                <span class="status-dot"></span>
+                <span class="status-text">В сети</span>
+            </div>
+            <button id="new-chat-btn" class="new-chat-btn" title="Новый чат">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+        </div>
+        
+        <div class="chat-window" id="chat-window">
+            <div class="message ai-message">
+                <div class="msg-content">
+                    Привет! 👋 Я твой гид по активному отдыху. Расскажи о своих планах, и я подберу всё снаряжение!
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <textarea id="chat-input" placeholder="Введите запрос..." rows="1"></textarea>
+            <button id="send-btn" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.START_VIEW = "{{ start_view|default:'' }}";
+</script>
+{% endblock %}

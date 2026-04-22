@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=1
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    command: gunicorn smart_shop.wsgi:application --bind 0.0.0.0:8000 --workers 3 --threads 2
